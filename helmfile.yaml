@@ -1,0 +1,6 @@
+releases:
+  - name: postgres
+    chart: oci://registry-1.docker.io/bitnamicharts/postgresql
+    version: "18.1.8"
+    values:
+      - manifests/postgres/values.yaml
