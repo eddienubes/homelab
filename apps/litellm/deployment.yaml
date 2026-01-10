@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: lite-llm-config
+data:
+  config.yaml: |
+    general_settings:
+      master_key: my-key-key-key
+    model_list:
+      - model_name: xai/grok-4-1-fast-reasoning
+        litellm_params:
+          model: xai/grok-4-1-fast-reasoning
+          api_key: fake key
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lite-llm
+  labels:
+    app: lite-llm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lite-llm
+  template:
+    metadata:
+      labels:
+        app: lite-llm
+    spec:
+      containers:
+        - name: lite-llm
+          image: docker.litellm.ai/berriai/litellm:main-stable
+          args: ["--port", "4000", "--config", "/etc/config.yaml"]
+          ports:
+            - containerPort: 4000
+          volumeMounts:
+            - name: lite-llm-config
+              mountPath: /etc/config.yaml
+              subPath: config.yaml
+
+      volumes:
+        - name: lite-llm-config
+          configMap:
+            name: lite-llm-config
