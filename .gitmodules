@@ -1,3 +1,0 @@
-[submodule "apps/gpt-researcher/gptr-mcp"]
-	path = apps/gpt-researcher/gptr-mcp
-	url = git@github.com:eddienubes/gptr-mcp.git
