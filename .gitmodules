@@ -1,0 +1,3 @@
+[submodule "apps/gpt-researcher/silly-search"]
+	path = apps/gpt-researcher/silly-search
+	url = git@github.com:eddienubes/silly-search.git
